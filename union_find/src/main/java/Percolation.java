@@ -1,11 +1,12 @@
-public class Percolation {
+import edu.princeton.cs.algs4.WeightedQuickUnionUF; // !!! uses "official" implementation
 
+public class Percolation {
+    private static final int SOURCE = 0;
+    private final int sink;
     private final int n;
     private final int nn;
     private final boolean[] sites;
     private final WeightedQuickUnionUF uf;
-    private final int source = 0;
-    private final int sink;
     private int openCount = 0;
 
 
@@ -18,7 +19,7 @@ public class Percolation {
         this.nn = n * n;
         this.sink = this.nn + 2 - 1; // 0 [1 2 3 4] 6
         this.sites = new boolean[this.nn + 2];  // n^2 + source + sink
-        this.sites[source] = true;
+        this.sites[SOURCE] = true;
         this.sites[sink] = true;
         this.uf = new WeightedQuickUnionUF(this.nn + 2); // n^2 + source + sink
     }
@@ -54,7 +55,7 @@ public class Percolation {
     // is the site (row, col) full?
     public boolean isFull(int row, int col) {
         check(row, col);
-        return uf.connected(source, id(row, col));
+        return uf.find(SOURCE) == uf.find(id(row, col));
     }
 
     // returns the number of open sites
@@ -64,7 +65,7 @@ public class Percolation {
 
     // does the system percolate?
     public boolean percolates() {
-        return uf.connected(source, sink);
+        return uf.find(SOURCE) == uf.find(sink);
     }
 
     private void check(int row, int col) {
@@ -93,7 +94,7 @@ public class Percolation {
 
     private int up(int row, int col) {
         if (row == 1) {
-            return source;
+            return SOURCE;
         }
         return id(row - 1, col);
     }

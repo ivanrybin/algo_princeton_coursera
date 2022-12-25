@@ -23,11 +23,11 @@ public class WeightedQuickUnionUF {
     private final int[] sz; // sz[i] == size of tree with root in id[i]
 
 
-    public WeightedQuickUnionUF(int N) {
-        count = N;
-        id = new int[N];
-        sz = new int[N];
-        for (int i = 0; i < N; i++) {
+    public WeightedQuickUnionUF(int n) {
+        count = n;
+        id = new int[n];
+        sz = new int[n];
+        for (int i = 0; i < n; i++) {
             id[i] = i;
             sz[i] = 1;
         }
