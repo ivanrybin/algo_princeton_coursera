@@ -53,6 +53,17 @@ public class Percolation {
     }
 
     // is the site (row, col) full?
+    //
+    // FAILED backwash tests:
+    //   Test 19: check for backwash with predetermined sites that have
+    //   multiple percolating paths
+    //
+    //   Test 20: call all methods in random order until all sites are open
+    //   (these inputs are prone to backwash)
+    //
+    //   Test 21: substitute WeightedQuickUnionUF data type that picks leader nondeterministically;
+    //         call all methods in random order until all sites are open
+    //         (these inputs are prone to backwash)
     public boolean isFull(int row, int col) {
         check(row, col);
         return uf.find(SOURCE) == uf.find(id(row, col));
