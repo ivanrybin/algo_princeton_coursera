@@ -4,7 +4,6 @@ public class Percolation {
     private static final int SOURCE = 0;
     private final int sink;
     private final int n;
-    private final int nn;
     private final boolean[] sites;
     private final WeightedQuickUnionUF uf;
     private int openCount = 0;
@@ -16,12 +15,11 @@ public class Percolation {
             throw new IllegalArgumentException("n must be > 0");
         }
         this.n = n;
-        this.nn = n * n;
-        this.sink = this.nn + 2 - 1; // 0 [1 2 3 4] 6
-        this.sites = new boolean[this.nn + 2];  // n^2 + source + sink
+        this.sink = n * n + 2 - 1; // 0 [1 2 3 4] 5 <- sink
+        this.sites = new boolean[n * n + 2];  // n^2 + source + sink
         this.sites[SOURCE] = true;
         this.sites[sink] = true;
-        this.uf = new WeightedQuickUnionUF(this.nn + 2); // n^2 + source + sink
+        this.uf = new WeightedQuickUnionUF(n * n + 2); // n^2 + source + sink
     }
 
     // opens the site (row, col) if it is not open already
